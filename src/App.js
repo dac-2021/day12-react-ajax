@@ -1,23 +1,39 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import { useEffect, useState } from "react";
 
 function App() {
+  return <HelloAjax />;
+}
+
+function HelloAjax() {
+  const [posts, setPosts] = useState([]);
+
+  useEffect(async () => {
+    const url = "https://jsonplaceholder.typicode.com/posts";
+    const res = await fetch(url);
+    const data = await res.json();
+
+    setPosts(data);
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+    <div>
+      <h1>Ajax Demo</h1>
+
+      {posts.map((item, index) => (
+        <div
+          key={index}
+          className="bg-secondary text-light mb-1 d-flex justify-content-center align-items-center"
+          style={{
+            height: "100px",
+            fontSize: "1.25rem",
+            textAlign: "center",
+            textTransform: "capitalize",
+          }}
         >
-          Learn React
-        </a>
-      </header>
+          {item.title}
+        </div>
+      ))}
     </div>
   );
 }
