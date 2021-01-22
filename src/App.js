@@ -6,15 +6,16 @@ function App() {
 }
 
 function HelloAjax() {
-  const [posts, setPosts] = useState([]);
+  const [facts, setFacts] = useState({});
 
   useEffect(() => {
     const fetchData = async () => {
-      const url = "https://jsonplaceholder.typicode.com/posts?_limit=15";
+      const url = "https://cat-fact.herokuapp.com/facts/random";
       const res = await fetch(url);
       const data = await res.json();
 
-      setPosts(data);
+      console.log(data);
+      setFacts(data);
     };
 
     fetchData();
@@ -22,22 +23,18 @@ function HelloAjax() {
 
   return (
     <div>
-      <h1>Ajax Demo</h1>
+      <h3 className="bg-primary text-light p-2">Cat Facts</h3>
 
-      {posts.map((item, index) => (
-        <div
-          key={index}
-          className="bg-secondary text-light mb-1 d-flex justify-content-center align-items-center"
-          style={{
-            height: "100px",
-            fontSize: "1.25rem",
-            textAlign: "center",
-            textTransform: "capitalize",
-          }}
-        >
-          {item.id}. {item.title}
-        </div>
-      ))}
+      <div
+        className="d-flex justify-content-center align-items-center "
+        style={{
+          height: "95vh",
+          fontSize: "1.5rem",
+          textAlign: "center",
+        }}
+      >
+        {facts.text}
+      </div>
     </div>
   );
 }
