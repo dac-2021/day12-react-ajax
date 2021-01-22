@@ -1,43 +1,29 @@
 import "./App.css";
-import { useEffect, useState } from "react";
+
+import { useSelector, useDispatch } from "react-redux";
 
 function App() {
-  return <HelloAjax />;
-}
-
-function HelloAjax() {
-  const [facts, setFacts] = useState({});
-
-  const fetchData = async () => {
-    const url = "https://cat-fact.herokuapp.com/facts/random";
-    const res = await fetch(url);
-    const data = await res.json();
-
-    console.log(data);
-    setFacts(data);
-  };
-
-  useEffect(() => fetchData(), []);
+  const rsState = useSelector((state) => state);
+  const dispatch = useDispatch();
 
   return (
-    <div>
-      <h3 className="bg-primary text-light p-2">Cat Facts</h3>
-
-      <div
-        className="d-flex flex-column justify-content-center align-items-center "
-        style={{
-          height: "95vh",
-          fontSize: "1.5rem",
-          textAlign: "center",
-        }}
-      >
-        {facts.text}
-        <button className="btn btn-primary" onClick={fetchData}>
-          Next Fact
-        </button>
-      </div>
-    </div>
+    <>
+      Hello World {rsState.count}
+      <button onClick={(e) => dispatch({ type: "INC" })}>INC</button>
+      <Page1 />
+      <Page2 />
+    </>
   );
+}
+
+function Page1() {
+  const rsState = useSelector((state) => state);
+  return <div>Page 1 {rsState.count}</div>;
+}
+
+function Page2() {
+  const rsState = useSelector((state) => state);
+  return <div>Page 2 {rsState.count}</div>;
 }
 
 export default App;
