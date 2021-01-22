@@ -10,7 +10,7 @@ function HelloAjax() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const url = "https://jsonplaceholder.typicode.com/posts";
+      const url = "https://jsonplaceholder.typicode.com/posts?_limit=15";
       const res = await fetch(url);
       const data = await res.json();
 
@@ -35,7 +35,7 @@ function HelloAjax() {
             textTransform: "capitalize",
           }}
         >
-          {item.title}
+          {item.id}. {item.title}
         </div>
       ))}
     </div>
