@@ -1,37 +1,42 @@
 import "./App.css";
 import { useEffect, useState } from "react";
 
+import { useDispatch, useSelector } from "react-redux";
+
 function App() {
-  const [counter, setCounter] = useState(100);
+  const rdState = useSelector((state) => state);
+  const dispatch = useDispatch();
+
   return (
     <>
-      {counter}
+      {rdState.counter}
       <div>
-        <button onClick={(e) => setCounter(counter + 1)}>INC</button>
+        <button onClick={(e) => dispatch({ type: "INC" })}>INC</button>
       </div>
-      <Page1 counter={counter} />
-      <Page2 counter={counter} />
+      <Page1 />
+      <Page2 />
     </>
   );
 }
 
 function Page1(props) {
-  const [counter, setCounter] = useState(props.counter);
+  const rdState = useSelector((state) => state);
+  const dispatch = useDispatch();
 
   return (
     <div>
-      Hello {counter}
+      Hello {rdState.counter}
       <div>
-        <button onClick={(e) => setCounter(counter + 1)}>INC</button>
+        <button onClick={(e) => dispatch({ type: "INC" })}>INC</button>
       </div>
     </div>
   );
 }
 
 function Page2(props) {
-  const [counter, setCounter] = useState(props.counter);
+  const rdState = useSelector((state) => state);
 
-  return <div>World {counter}</div>;
+  return <div>World {rdState.counter}</div>;
 }
 
 export default App;
