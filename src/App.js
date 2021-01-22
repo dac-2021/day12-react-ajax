@@ -2,42 +2,36 @@ import "./App.css";
 import { useEffect, useState } from "react";
 
 function App() {
-  return <HelloAjax />;
+  const [counter, setCounter] = useState(100);
+  return (
+    <>
+      {counter}
+      <div>
+        <button onClick={(e) => setCounter(counter + 1)}>INC</button>
+      </div>
+      <Page1 counter={counter} />
+      <Page2 counter={counter} />
+    </>
+  );
 }
 
-function HelloAjax() {
-  const [facts, setFacts] = useState({});
-
-  const fetchData = async () => {
-    const url = "https://cat-fact.herokuapp.com/facts/random";
-    const res = await fetch(url);
-    const data = await res.json();
-
-    console.log(data);
-    setFacts(data);
-  };
-
-  useEffect(() => fetchData(), []);
+function Page1(props) {
+  const [counter, setCounter] = useState(props.counter);
 
   return (
     <div>
-      <h3 className="bg-primary text-light p-2">Cat Facts</h3>
-
-      <div
-        className="d-flex flex-column justify-content-center align-items-center "
-        style={{
-          height: "95vh",
-          fontSize: "1.5rem",
-          textAlign: "center",
-        }}
-      >
-        {facts.text}
-        <button className="btn btn-primary" onClick={fetchData}>
-          Next Fact
-        </button>
+      Hello {counter}
+      <div>
+        <button onClick={(e) => setCounter(counter + 1)}>INC</button>
       </div>
     </div>
   );
+}
+
+function Page2(props) {
+  const [counter, setCounter] = useState(props.counter);
+
+  return <div>World {counter}</div>;
 }
 
 export default App;
