@@ -8,12 +8,16 @@ function App() {
 function HelloAjax() {
   const [posts, setPosts] = useState([]);
 
-  useEffect(async () => {
-    const url = "https://jsonplaceholder.typicode.com/posts";
-    const res = await fetch(url);
-    const data = await res.json();
+  useEffect(() => {
+    const fetchData = async () => {
+      const url = "https://jsonplaceholder.typicode.com/posts";
+      const res = await fetch(url);
+      const data = await res.json();
 
-    setPosts(data);
+      setPosts(data);
+    };
+
+    fetchData();
   }, []);
 
   return (
